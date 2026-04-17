@@ -72,6 +72,16 @@ function CartItem() {
   const cartCount = useSelector(selectCartCount);
   const [showModal, setShowModal] = useState(false);
 
+  // Calculate the total cost of all items in the cart
+  const calculateTotalAmount = () => {
+    return cartItems.reduce((total, item) => total + item.cost, 0).toFixed(2);
+  };
+
+  // Calculate the total cost for a single item based on quantity
+  const calculateTotalCost = (item) => {
+    return (item.price * item.quantity).toFixed(2);
+  };
+
   const handleIncrease = (item) => {
     dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }));
   };
@@ -162,13 +172,13 @@ function CartItem() {
                     </div>
                   </div>
 
-                  {/* Right: Total cost + Delete */}
+                  {/* Right: Total cost for this item + Delete */}
                   <div className="cart-item-right">
                     <span
                       className="cart-item-total-price"
                       id={`item-total-${item.id}`}
                     >
-                      ${item.cost.toFixed(2)}
+                      ${calculateTotalCost(item)}
                     </span>
                     <button
                       id={`delete-item-${item.id}`}
@@ -189,7 +199,7 @@ function CartItem() {
 
               <div className="summary-row">
                 <span>Items ({cartCount})</span>
-                <span>${cartTotal.toFixed(2)}</span>
+                <span>${calculateTotalAmount()}</span>
               </div>
               <div className="summary-row">
                 <span>Delivery</span>
@@ -202,9 +212,9 @@ function CartItem() {
               )}
 
               <div className="summary-row total">
-                <span>Total</span>
+                <span>Total Amount</span>
                 <span id="cart-grand-total">
-                  ${(cartTotal + (cartTotal >= 50 ? 0 : 5.99)).toFixed(2)}
+                  ${(parseFloat(calculateTotalAmount()) + (parseFloat(calculateTotalAmount()) >= 50 ? 0 : 5.99)).toFixed(2)}
                 </span>
               </div>
 

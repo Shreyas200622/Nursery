@@ -36,6 +36,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ======= BACKGROUND IMAGE CLASS (required by assignment) ======= */
+.background-image {
+  background-image: url('https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=1800&q=85&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
 /* ======= LANDING PAGE ======= */
 .landing-page {
   position: relative;
@@ -45,7 +53,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* Background image for Paradise Nursery landing page */
+  /* Uses .background-image class for the background photo */
   background-image:
     linear-gradient(
       135deg,
